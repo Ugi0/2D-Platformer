@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 1, y: 0, z: 0}
   m_LookaheadTime: 0.05
   m_LookaheadSmoothing: 1
   m_LookaheadIgnoreY: 0
@@ -427,7 +427,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1262.2382, y: 1517.812, z: -2559.9895}
+  m_LocalPosition: {x: 1263.2537, y: 1517.8042, z: -2559.9895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -497,7 +497,7 @@ Transform:
   m_GameObject: {fileID: 649528057}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1262.2382, y: 1517.812, z: -2549.9895}
+  m_LocalPosition: {x: 1262.2537, y: 1517.8042, z: -2549.9895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -576,7 +576,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0308483, y: 0.98437595}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -619,7 +619,7 @@ BoxCollider2D:
     border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 1.0308483, y: 0.98437595}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0

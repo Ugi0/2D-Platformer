@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
             Vector2.down, 0.6f, _groundMask);
         //Debug.DrawRay(player.position + Vector3.right * 0.45f, Vector2.down * 0.6f, Color.green, 1f);
         //Debug.DrawRay(player.position - Vector3.right * 0.45f, Vector2.down * 0.6f, Color.green, 1f);
-        return (leftHit != null && rightHit != null);
+        return leftHit && rightHit;
     }
 
     void Turn() {

@@ -43,10 +43,13 @@ public class Player : MonoBehaviour
     }
 
     bool isGrounded() {
-        RaycastHit2D hit =  Physics2D.Raycast(player.position, 
+        RaycastHit2D leftHit = Physics2D.Raycast(player.position - Vector3.right * 0.45f, 
             Vector2.down, 0.6f, _groundMask);
-        //Debug.DrawRay(player.position, Vector2.down * 0.6f, Color.green, 1f);
-        return hit.collider != null;
+        RaycastHit2D rightHit = Physics2D.Raycast(player.position + Vector3.right * 0.45f, 
+            Vector2.down, 0.6f, _groundMask);
+        //Debug.DrawRay(player.position + Vector3.right * 0.45f, Vector2.down * 0.6f, Color.green, 1f);
+        //Debug.DrawRay(player.position - Vector3.right * 0.45f, Vector2.down * 0.6f, Color.green, 1f);
+        return (leftHit != null && rightHit != null);
     }
 
     void Turn() {

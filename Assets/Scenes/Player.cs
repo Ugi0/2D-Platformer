@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
     [SerializeField] int moveSpeed;
     [SerializeField] int jumpHeight;
 
+    [SerializeField] LayerMask _groundMask;
+
     float horizontal;
 
-    bool isGrounded;
+    //bool isGrounded;
     bool isFacingRight;
 
     Rigidbody2D myRigidbody;
@@ -34,23 +36,17 @@ public class Player : MonoBehaviour
         }
         Vector2 newVel = myRigidbody.velocity;
         newVel.x = moveSpeed * horizontal;
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded()) {
             newVel.y = jumpHeight;
         }
         myRigidbody.velocity = newVel;
     }
 
-    void OnCollisionEnter2D(Collision2D hit)
-    {
-        if (hit.gameObject.CompareTag ("Ground")) {
-            Debug.Log("Grounded");
-            isGrounded = true;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D hit)
-    {
-        isGrounded = false;
+    bool isGrounded() {
+        RaycastHit2D hit =  Physics2D.Raycast(player.position, 
+            Vector2.down, 0.6f, _groundMask);
+        //Debug.DrawRay(player.position, Vector2.down * 0.6f, Color.green, 1f);
+        return hit.collider != null;
     }
 
     void Turn() {

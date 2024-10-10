@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 335453115}
   - component: {fileID: 335453116}
   - component: {fileID: 335453117}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -642,6 +642,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpHeight: 10
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!61 &649528063
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -852,7 +855,7 @@ GameObject:
   - component: {fileID: 820110846}
   - component: {fileID: 820110848}
   - component: {fileID: 820110847}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1203,7 +1206,7 @@ GameObject:
   - component: {fileID: 1712916834}
   - component: {fileID: 1712916835}
   - component: {fileID: 1712916836}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}

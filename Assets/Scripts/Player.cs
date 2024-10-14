@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -12,7 +14,8 @@ public class Player : MonoBehaviour
     float horizontal;
 
     //bool isGrounded;
-    bool isFacingRight;
+    bool isFacingLeft;
+    Animator animator;
 
     Rigidbody2D myRigidbody;
     Transform player;
@@ -21,17 +24,24 @@ public class Player : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").transform;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         MoveControls();
+ 
+        animator.SetFloat("xVelocity", Math.Abs(myRigidbody.velocity.x));
+        animator.SetFloat("yVelocity", myRigidbody.velocity.y);
+
+        //Jump is not working with this, there is some problem
+        //animator.SetBool("isJumping", !isGrounded());
     }
 
     void MoveControls() {
         horizontal = Input.GetAxis("Horizontal");
-        if ((horizontal < 0 && isFacingRight) || (horizontal > 0 && !isFacingRight)) {
+        if ((horizontal < 0 && !isFacingLeft) || (horizontal > 0 && isFacingLeft)) {
             Turn();
         }
         Vector2 newVel = myRigidbody.velocity;
@@ -53,14 +63,14 @@ public class Player : MonoBehaviour
     }
 
     void Turn() {
-        if (isFacingRight) {
+        if (isFacingLeft) {
             Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
-            isFacingRight = !isFacingRight;
+            isFacingLeft = !isFacingLeft;
         } else {
             Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
-            isFacingRight = !isFacingRight;
+            isFacingLeft = !isFacingLeft;
         }
     }
 

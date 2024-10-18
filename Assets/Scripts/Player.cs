@@ -11,11 +11,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] LayerMask _groundMask;
 
+    private static float playerWidth = 1f;
+    private float playerHeight;
+
     float horizontal;
 
     //bool isGrounded;
     bool isFacingLeft;
     Animator animator;
+
+    BoxCollider2D jumpCollider;
 
     Rigidbody2D myRigidbody;
     Transform player;
@@ -24,7 +29,13 @@ public class Player : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").transform;
+
+        jumpCollider = GameObject.FindWithTag("Player").GetComponents<BoxCollider2D>()[0];
+
         animator = GetComponent<Animator>();
+
+        playerHeight = GetComponent<SpriteRenderer>().size.y;
+
     }
 
     // Update is called once per frame
@@ -46,20 +57,20 @@ public class Player : MonoBehaviour
         }
         Vector2 newVel = myRigidbody.velocity;
         newVel.x = moveSpeed * horizontal;
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded()) {
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
             newVel.y = jumpHeight;
         }
         myRigidbody.velocity = newVel;
     }
 
-    bool isGrounded() {
-        RaycastHit2D leftHit = Physics2D.Raycast(player.position - Vector3.right * 0.45f, 
-            Vector2.down, 0.6f, _groundMask);
-        RaycastHit2D rightHit = Physics2D.Raycast(player.position + Vector3.right * 0.45f, 
-            Vector2.down, 0.6f, _groundMask);
-        //Debug.DrawRay(player.position + Vector3.right * 0.45f, Vector2.down * 0.6f, Color.green, 1f);
-        //Debug.DrawRay(player.position - Vector3.right * 0.45f, Vector2.down * 0.6f, Color.green, 1f);
-        return leftHit && rightHit;
+    bool IsGrounded() {
+        RaycastHit2D leftHit = Physics2D.Raycast(jumpCollider.bounds.center - Vector3.right * playerWidth, 
+            Vector2.down, 1f, _groundMask);
+        RaycastHit2D rightHit = Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * playerWidth, 
+            Vector2.down, 1f, _groundMask);
+        //Debug.DrawRay(jumpCollider.bounds.center - Vector3.right * playerWidth, Vector2.down, Color.green, 1f);
+        //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * playerWidth, Vector2.down, Color.green, 1f);
+        return leftHit || rightHit;
     }
 
     void Turn() {

@@ -45,9 +45,7 @@ public class Player : MonoBehaviour
  
         animator.SetFloat("xVelocity", Math.Abs(myRigidbody.velocity.x));
         animator.SetFloat("yVelocity", myRigidbody.velocity.y);
-
-        //Jump is not working with this, there is some problem
-        //animator.SetBool("isJumping", !isGrounded());
+        animator.SetBool("isJumping", !IsGrounded());
     }
 
     void MoveControls() {

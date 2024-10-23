@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int moveSpeed;
-    [SerializeField] int jumpHeight;
+    [SerializeField] public float moveSpeed;
+    [SerializeField] public float jumpHeight;
 
     [SerializeField] LayerMask _groundMask;
 

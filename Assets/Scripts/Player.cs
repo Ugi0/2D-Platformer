@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int moveSpeed;
-    [SerializeField] int jumpHeight;
+    [SerializeField] public float moveSpeed;
+    [SerializeField] public float jumpHeight;
 
     [SerializeField] LayerMask _groundMask;
 
@@ -46,11 +46,11 @@ public class Player : MonoBehaviour
 
     bool isGrounded() {
         RaycastHit2D leftHit = Physics2D.Raycast(player.position - Vector3.right * 30f, 
-            Vector2.down, 50f, _groundMask);
-        RaycastHit2D rightHit = Physics2D.Raycast(player.position + Vector3.right * 30f, 
-            Vector2.down, 50f, _groundMask);
-        //Debug.DrawRay(player.position + Vector3.right * 30f, Vector2.down * 50f, Color.green, 1f);
-        //Debug.DrawRay(player.position - Vector3.right * 30f, Vector2.down * 50f, Color.green, 1f);
+            Vector2.down, 10f, _groundMask);
+        RaycastHit2D rightHit = Physics2D.Raycast(player.position + Vector3.right * 5f, 
+            Vector2.down, 10f, _groundMask);
+        Debug.DrawRay(player.position + Vector3.right * 5f, Vector2.down * 10f, Color.green, 1f);
+        Debug.DrawRay(player.position - Vector3.right * 5f, Vector2.down * 10f, Color.green, 1f);
         return leftHit && rightHit;
     }
 

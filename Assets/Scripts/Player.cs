@@ -6,14 +6,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int moveSpeed;
-    [SerializeField] int jumpHeight;
+    [SerializeField] public float moveSpeed;
+    [SerializeField] public float jumpHeight;
 
     [SerializeField] LayerMask _groundMask;
 
-    private static float playerWidth = 1f;
-    private float playerHeight;
-
+    private static float playerWidth = 5f;
     float horizontal;
 
     //bool isGrounded;
@@ -33,15 +31,14 @@ public class Player : MonoBehaviour
         jumpCollider = GameObject.FindWithTag("Player").GetComponents<BoxCollider2D>()[0];
 
         animator = GetComponent<Animator>();
-
-        playerHeight = GetComponent<SpriteRenderer>().size.y;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveControls();
+        if (!GameWorld.isPaused) {
+            MoveControls();
+        }
  
         animator.SetFloat("xVelocity", Math.Abs(myRigidbody.velocity.x));
         animator.SetFloat("yVelocity", myRigidbody.velocity.y);
@@ -63,12 +60,12 @@ public class Player : MonoBehaviour
 
     bool IsGrounded() {
         RaycastHit2D leftHit = Physics2D.Raycast(jumpCollider.bounds.center - Vector3.right * playerWidth, 
-            Vector2.down, 1f, _groundMask);
+            Vector2.down, 10f, _groundMask);
         RaycastHit2D rightHit = Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * playerWidth, 
-            Vector2.down, 1f, _groundMask);
-        //Debug.DrawRay(jumpCollider.bounds.center - Vector3.right * playerWidth, Vector2.down, Color.green, 1f);
-        //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * playerWidth, Vector2.down, Color.green, 1f);
-        return leftHit || rightHit;
+            Vector2.down, 10f, _groundMask);
+        //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * playerWidth, Vector2.down * 10f, Color.green, 1f);
+        //Debug.DrawRay(jumpCollider.bounds.center - Vector3.right * playerWidth, Vector2.down * 10f, Color.green, 1f);
+        return leftHit && rightHit;
     }
 
     void Turn() {

@@ -19,7 +19,8 @@ public class SceneSwitch : MonoBehaviour
     // called when the cube hits the floor
     void OnCollisionEnter2D(Collision2D col)
     {
-        SceneManager.LoadScene(scene.name);
-        Debug.Log("OnCollisionEnter2D");
+        if (col.collider.CompareTag("Player")) {
+            SceneManager.LoadScene(scene.name);
+        }
     }
 }

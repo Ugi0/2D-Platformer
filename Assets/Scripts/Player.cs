@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] LayerMask _groundMask;
 
-    private static float playerWidth = 5f;
+    private static float playerWidth = 10f;
     float horizontal;
 
     //bool isGrounded;
@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
             Vector2.down, 10f, _groundMask);
         //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * playerWidth, Vector2.down * 10f, Color.green, 1f);
         //Debug.DrawRay(jumpCollider.bounds.center - Vector3.right * playerWidth, Vector2.down * 10f, Color.green, 1f);
-        return leftHit && rightHit;
+        return leftHit || rightHit;
     }
 
     void Turn() {

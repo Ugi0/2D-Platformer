@@ -26,7 +26,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveControls();
+        if (!GameWorld.isPaused) {
+            MoveControls();
+        }
     }
 
     void MoveControls() {
@@ -43,12 +45,12 @@ public class Player : MonoBehaviour
     }
 
     bool isGrounded() {
-        RaycastHit2D leftHit = Physics2D.Raycast(player.position - Vector3.right * 0.45f, 
-            Vector2.down, 0.6f, _groundMask);
-        RaycastHit2D rightHit = Physics2D.Raycast(player.position + Vector3.right * 0.45f, 
-            Vector2.down, 0.6f, _groundMask);
-        //Debug.DrawRay(player.position + Vector3.right * 0.45f, Vector2.down * 0.6f, Color.green, 1f);
-        //Debug.DrawRay(player.position - Vector3.right * 0.45f, Vector2.down * 0.6f, Color.green, 1f);
+        RaycastHit2D leftHit = Physics2D.Raycast(player.position - Vector3.right * 30f, 
+            Vector2.down, 50f, _groundMask);
+        RaycastHit2D rightHit = Physics2D.Raycast(player.position + Vector3.right * 30f, 
+            Vector2.down, 50f, _groundMask);
+        //Debug.DrawRay(player.position + Vector3.right * 30f, Vector2.down * 50f, Color.green, 1f);
+        //Debug.DrawRay(player.position - Vector3.right * 30f, Vector2.down * 50f, Color.green, 1f);
         return leftHit && rightHit;
     }
 

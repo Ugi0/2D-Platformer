@@ -8,10 +8,18 @@ public class Player : MonoBehaviour
 {
     [SerializeField] public float moveSpeed;
     [SerializeField] public float jumpHeight;
+    [SerializeField] public float climbSpeed;
 
-    [SerializeField] LayerMask _groundMask;
+    [SerializeField] LayerMask _platformMask;
+    [SerializeField] LayerMask _ladderMask;
 
-    private static float playerWidth = 10f;
+    [SerializeField] LayerMask _enemiesMask;
+    private static float playerWidth = 9f;
+    private static int RaycastNumber = 5;
+    private static float rayCastLength = 5f;
+
+    private static int defaultHealth = 3;
+    public int playerHealth;
     float horizontal;
 
     //bool isGrounded;
@@ -25,6 +33,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerHealth = defaultHealth;
         myRigidbody = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").transform;
 
@@ -51,21 +60,38 @@ public class Player : MonoBehaviour
             Turn();
         }
         Vector2 newVel = myRigidbody.velocity;
+        Vector2 newPos = myRigidbody.position;
         newVel.x = moveSpeed * horizontal;
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
             newVel.y = jumpHeight;
         }
+        if (Input.GetKey(KeyCode.UpArrow) && IsOnALadder()) {
+            newVel.y = climbSpeed;
+        }
         myRigidbody.velocity = newVel;
+        myRigidbody.position = newPos;
+    }
+
+    bool IsOnALadder() {
+        for (int i = 0; i < RaycastNumber; i++) {
+            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber), Vector2.down * rayCastLength, Color.green, 1f);
+            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber),
+            Vector2.down, rayCastLength, _ladderMask)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     bool IsGrounded() {
-        RaycastHit2D leftHit = Physics2D.Raycast(jumpCollider.bounds.center - Vector3.right * playerWidth, 
-            Vector2.down, 10f, _groundMask);
-        RaycastHit2D rightHit = Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * playerWidth, 
-            Vector2.down, 10f, _groundMask);
-        //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * playerWidth, Vector2.down * 10f, Color.green, 1f);
-        //Debug.DrawRay(jumpCollider.bounds.center - Vector3.right * playerWidth, Vector2.down * 10f, Color.green, 1f);
-        return leftHit || rightHit;
+        for (int i = 0; i < RaycastNumber; i++) {
+            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber), Vector2.down * rayCastLength, Color.green, 1f);
+            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber),
+            Vector2.down, rayCastLength, _platformMask)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     void Turn() {
@@ -77,6 +103,21 @@ public class Player : MonoBehaviour
             Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
             isFacingLeft = !isFacingLeft;
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision) {
+        if (collision == null) return;
+        if ((_enemiesMask.value & (1 << collision.gameObject.layer)) != 0) {
+            if (collision.gameObject.tag.Equals("Death Barrier")) {
+                playerHealth = 0;
+            } else {
+                playerHealth -= 1;
+            }
+            if (playerHealth <= 0) {
+                GameWorld.instance.Reset();
+                playerHealth = defaultHealth;
+            }
         }
     }
 

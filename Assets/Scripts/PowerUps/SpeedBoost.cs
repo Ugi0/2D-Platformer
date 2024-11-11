@@ -2,28 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoost : MonoBehaviour
+[CreateAssetMenu(fileName = "SpeedBoost", menuName = "PowerUps/SpeedBoost")]
+public class SpeedBoost : PowerUp
 {
     public float speedMultiplier = 2f;
-    public float duration = 5f;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void ApplyPowerUp()
     {
-        if (other.CompareTag("Player"))
-        {
-            StartCoroutine(ApplySpeedBoost(other));
-        }
+        player.moveSpeed *= speedMultiplier;
     }
 
-    private IEnumerator ApplySpeedBoost(Collider2D playerCollider)
+    protected override void RemovePowerUp()
     {
-        Player controller = playerCollider.GetComponent<Player>();
-        controller.moveSpeed *= speedMultiplier;
-        gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(duration);
-
-        controller.moveSpeed /= speedMultiplier;
-        Destroy(gameObject);
+        player.moveSpeed /= speedMultiplier;
     }
 }

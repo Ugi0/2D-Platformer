@@ -14,9 +14,9 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask _ladderMask;
 
     [SerializeField] LayerMask _enemiesMask;
-    private static float playerWidth = 9f;
+    private static float playerWidth = 1.5f;
     private static int RaycastNumber = 5;
-    private static float rayCastLength = 5f;
+    private static float rayCastLength = 1f;
 
     private static int defaultHealth = 3;
     public int playerHealth;
@@ -74,8 +74,8 @@ public class Player : MonoBehaviour
 
     bool IsOnALadder() {
         for (int i = 0; i < RaycastNumber; i++) {
-            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber), Vector2.down * rayCastLength, Color.green, 1f);
-            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber),
+            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber + 1), Vector2.down * rayCastLength, Color.green, 1f);
+            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber + 1),
             Vector2.down, rayCastLength, _ladderMask)) {
                 return true;
             }
@@ -85,8 +85,8 @@ public class Player : MonoBehaviour
 
     bool IsGrounded() {
         for (int i = 0; i < RaycastNumber; i++) {
-            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber), Vector2.down * rayCastLength, Color.green, 1f);
-            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber),
+            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber + 1), Vector2.down * rayCastLength, Color.green, 1f);
+            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber + 1),
             Vector2.down, rayCastLength, _platformMask)) {
                 return true;
             }

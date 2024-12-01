@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dcbfd181dd84ed48a981394b28306b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 74ea2fce0208e2e45bebdca8e3f44595, type: 3}
   m_Name: SpeedBoost
   m_EditorClassIdentifier: 
-  powerUpName: SpeedBoost
+  pickUpName: SpeedBoost
   duration: 5
   hudElementPrefab: {fileID: 5950457785014811046, guid: e9e30272f845981429a01d1a7ab86511, type: 3}
   speedMultiplier: 2

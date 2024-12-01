@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PowerUp : ScriptableObject
+public abstract class PickUp : ScriptableObject
 {
-    public string powerUpName;
+    public string pickUpName;
     public float duration;
     public GameObject hudElementPrefab;
 
@@ -15,25 +15,27 @@ public abstract class PowerUp : ScriptableObject
     {
         this.player = player;
 
-        // Instantiate the HUD element and get the TimerBar component
-        GameObject hudElementInstance = Instantiate(hudElementPrefab, hudContainer.transform);
-        timerBar = hudElementInstance.GetComponent<ProgressBar>();
-
-        if (timerBar != null)
+        if (hudElementPrefab != null)
         {
-            timerBar.SetMaxValue(duration);
-            timerBar.SetCurrentValue(duration);
+            GameObject hudElementInstance = Instantiate(hudElementPrefab, hudContainer.transform);
+            timerBar = hudElementInstance.GetComponent<ProgressBar>();
+
+            if (timerBar != null)
+            {
+                timerBar.SetMaxValue(duration);
+                timerBar.SetCurrentValue(duration);
+            }
         }
 
-        PowerUpManager.Instance.StartCoroutine(ApplyEffect());
+        PickUpManager.Instance.StartCoroutine(ApplyEffect());
     }
 
-    protected abstract void ApplyPowerUp();
-    protected abstract void RemovePowerUp();
+    protected abstract void ApplyPickUp();
+    protected abstract void RemovePickUp();
 
     private IEnumerator ApplyEffect()
     {
-        ApplyPowerUp();
+        ApplyPickUp();
         float remainingTime = duration;
 
         while (remainingTime > 0)
@@ -47,7 +49,7 @@ public abstract class PowerUp : ScriptableObject
             yield return null;
         }
 
-        RemovePowerUp();
+        RemovePickUp();
 
         // Destroy the HUD element after the power-up ends
         if (timerBar != null)

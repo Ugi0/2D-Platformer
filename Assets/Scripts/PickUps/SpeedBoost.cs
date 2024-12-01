@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SpeedBoost", menuName = "PowerUps/SpeedBoost")]
-public class SpeedBoost : PowerUp
+[CreateAssetMenu(fileName = "SpeedBoost", menuName = "PickUps/SpeedBoost")]
+public class SpeedBoost : PickUp
 {
     public float speedMultiplier = 2f;
 
-    protected override void ApplyPowerUp()
+    protected override void ApplyPickUp()
     {
         player.moveSpeed *= speedMultiplier;
     }
 
-    protected override void RemovePowerUp()
+    protected override void RemovePickUp()
     {
         player.moveSpeed /= speedMultiplier;
     }

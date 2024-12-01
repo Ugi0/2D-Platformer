@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpManager : MonoBehaviour
+public class PickUpManager : MonoBehaviour
 {
-    public static PowerUpManager Instance;
+    public static PickUpManager Instance;
     public GameObject hudContainer;
 
     private void Awake()
@@ -13,8 +13,8 @@ public class PowerUpManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void ActivatePowerUp(PowerUp powerUp, Player player)
+    public void ActivatePickUp(PickUp pickUp, Player player)
     {
-        powerUp.Activate(player, hudContainer);
+        pickUp.Activate(player, hudContainer);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class Player : MonoBehaviour
     private static int defaultHealth = 3;
     public int playerHealth;
     float horizontal;
+
+    [Header("UI")]
+    public ProgressBar healthBar;
 
     //bool isGrounded;
     bool isFacingLeft;

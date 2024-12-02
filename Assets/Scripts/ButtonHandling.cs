@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIHandler : MonoBehaviour
 {
@@ -97,5 +98,17 @@ public class UIHandler : MonoBehaviour
             previousSfxValue = sfxSlider.value;
             sfxSlider.value = 0;
         }
+    }
+
+    public void ResetGame() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+        GameWorld.dead = false;
+    }
+
+    public void BackToMenu() {
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        GameWorld.dead = false;
     }
 }

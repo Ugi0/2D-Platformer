@@ -11,11 +11,12 @@ public class GameWorld : MonoBehaviour
     public static GameWorld instance { get; private set; }
 
     [SerializeField] GameObject pauseMenu;
-    [SerializeField] UnityEngine.Object resetScene;
+    [SerializeField] GameObject deathMenu;
     public static bool isPaused;
 
-    private float startTime;
-    private float endTime;
+    private static float startTime;
+    private static float endTime;
+    public static bool dead = false;
 
     private void Awake() 
 { 
@@ -33,28 +34,29 @@ public class GameWorld : MonoBehaviour
 
         startTime = Time.time;
 
-        pauseMenu.SetActive(false);
     }
 
     public float getTime() {
-        if (endTime == 0.0f) {
-            return Time.time - startTime;
-        }
-        return Time.time - endTime;
+        Debug.Log(startTime);
+        Debug.Log(endTime);
+        return endTime - startTime;
     }
 
     public void stopTimer() {
         endTime = Time.time;
     }
 
-    public void Reset() {
-        SceneManager.LoadScene(resetScene.name);
+    public void Death() {
+        deathMenu.SetActive(true);
+        Time.timeScale = 0;
+        dead = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (dead) return;
             if (!isPaused) {
                 pauseMenu.SetActive(true);
                 Time.timeScale = 0;

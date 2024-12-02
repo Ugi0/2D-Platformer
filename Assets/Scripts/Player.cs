@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
                 playerHealth -= 1;
             }
             if (playerHealth <= 0) {
-                GameWorld.instance.Reset();
+                GameWorld.instance.Death();
                 playerHealth = defaultHealth;
             }
         }

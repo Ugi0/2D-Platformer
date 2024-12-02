@@ -5,13 +5,16 @@ using UnityEngine;
 public class EntityMovement : MonoBehaviour
 {
     public float speed = 1f;
+    private bool isMoving;
     public Vector2 direction = Vector2.left;
     private Rigidbody2D _rigidbody;
     private Vector2 velocity;
+    private Animator animator;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         enabled = false;
     }
 
@@ -38,12 +41,30 @@ public class EntityMovement : MonoBehaviour
         _rigidbody.Sleep();
     }
 
+    private void Animate()
+    {
+        if (isMoving == true) 
+        {
+            animator.SetBool("isMoving", true);
+        }
+    }
+
     private void FixedUpdate()
     {
         velocity.x = direction.x * speed;
         velocity.y += Physics2D.gravity.y * Time.fixedDeltaTime;
 
         _rigidbody.MovePosition(_rigidbody.position + velocity * Time.fixedDeltaTime);
+        if (velocity.x == 0)
+        {
+            isMoving = false;
+        }
+        else 
+        {
+            isMoving = true;
+        }
+
+        Animate();
         // Debug.Log("Moving");
 
         if (_rigidbody.Raycast2(direction)){

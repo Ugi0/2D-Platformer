@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     public int playerHealth;
     float horizontal;
 
+    [Header("UI")]
+    public ProgressBar healthBar;
+
     //bool isGrounded;
     bool isFacingLeft;
     Animator animator;
@@ -40,6 +43,12 @@ public class Player : MonoBehaviour
         jumpCollider = GameObject.FindWithTag("Player").GetComponents<BoxCollider2D>()[0];
 
         animator = GetComponent<Animator>();
+
+        if (healthBar != null)
+        {
+            healthBar.SetMaxValue(defaultHealth);
+            healthBar.SetCurrentValue(playerHealth);
+        }
     }
 
     // Update is called once per frame
@@ -117,6 +126,10 @@ public class Player : MonoBehaviour
             if (playerHealth <= 0) {
                 GameWorld.instance.Reset();
                 playerHealth = defaultHealth;
+            }
+            if (healthBar != null)
+            {
+                healthBar.SetCurrentValue(playerHealth);
             }
         }
     }

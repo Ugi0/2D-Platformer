@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -15,9 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask _ladderMask;
 
     [SerializeField] LayerMask _enemiesMask;
-    private static float playerWidth = 9f;
+    private static float playerWidth = 1.5f;
     private static int RaycastNumber = 5;
-    private static float rayCastLength = 5f;
+    private static float rayCastLength = 1f;
 
     private static int defaultHealth = 3;
     public int playerHealth;
@@ -29,6 +30,10 @@ public class Player : MonoBehaviour
     //bool isGrounded;
     bool isFacingLeft;
     Animator animator;
+
+    bool isClimbing;
+    bool isJumping;
+    bool isGrounded;
 
     BoxCollider2D jumpCollider;
 
@@ -51,11 +56,8 @@ public class Player : MonoBehaviour
     {
         if (!GameWorld.isPaused) {
             MoveControls();
+            Animate();
         }
- 
-        animator.SetFloat("xVelocity", Math.Abs(myRigidbody.velocity.x));
-        animator.SetFloat("yVelocity", myRigidbody.velocity.y);
-        animator.SetBool("isJumping", !IsGrounded());
     }
 
     void MoveControls() {
@@ -68,9 +70,15 @@ public class Player : MonoBehaviour
         newVel.x = moveSpeed * horizontal;
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
             newVel.y = jumpHeight;
+            isJumping = true;
+            isGrounded = false;
+            isClimbing = false;
         }
         if (Input.GetKey(KeyCode.UpArrow) && IsOnALadder()) {
             newVel.y = climbSpeed;
+            isClimbing = true;
+            isGrounded = false;
+            isJumping = false;
         }
         myRigidbody.velocity = newVel;
         myRigidbody.position = newPos;
@@ -78,8 +86,8 @@ public class Player : MonoBehaviour
 
     bool IsOnALadder() {
         for (int i = 0; i < RaycastNumber; i++) {
-            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber), Vector2.down * rayCastLength, Color.green, 1f);
-            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber),
+            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber + 1), Vector2.down * rayCastLength, Color.green, 1f);
+            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber + 1),
             Vector2.down, rayCastLength, _ladderMask)) {
                 return true;
             }
@@ -89,8 +97,8 @@ public class Player : MonoBehaviour
 
     bool IsGrounded() {
         for (int i = 0; i < RaycastNumber; i++) {
-            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber), Vector2.down * rayCastLength, Color.green, 1f);
-            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber),
+            //Debug.DrawRay(jumpCollider.bounds.center + Vector3.right * (playerWidth/RaycastNumber) * (2 * i - RaycastNumber + 1), Vector2.down * rayCastLength, Color.green, 1f);
+            if (Physics2D.Raycast(jumpCollider.bounds.center + Vector3.right * (playerWidth / RaycastNumber) * (2 * i - RaycastNumber + 1),
             Vector2.down, rayCastLength, _platformMask)) {
                 return true;
             }
@@ -121,6 +129,34 @@ public class Player : MonoBehaviour
             if (playerHealth <= 0) {
                 GameWorld.instance.Death();
                 playerHealth = defaultHealth;
+            }
+        }
+    }
+
+    void Animate() {
+        animator.SetFloat("xVelocity", Math.Abs(myRigidbody.velocity.x));
+        float yVel = myRigidbody.velocity.y;
+        animator.SetFloat("yVelocity", yVel);
+        
+        isGrounded = IsGrounded();
+        animator.SetBool("isGrounded", isGrounded);
+
+        if (isGrounded == true){
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isClimbing", false);
+        }
+        else{
+            if (isJumping == true) {
+                animator.SetBool("isJumping", true);
+                animator.SetBool("isClimbing", false);
+            }
+            else if (yVel < 0) {
+                animator.SetBool("isJumping", true);
+                animator.SetBool("isClimbing", false);
+            }
+            else if (isClimbing == true && yVel > 0){
+                animator.SetBool("isClimbing", true);
+                animator.SetBool("isJumping", false);
             }
         }
     }

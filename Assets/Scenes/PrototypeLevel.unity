@@ -784,7 +784,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.153
+  m_Volume: 0.17
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2533,6 +2533,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 18c39fd2cf38b45b39a2e1e2cc617331, type: 3}
   - name: Falling
     clip: {fileID: 8300000, guid: 98fa1eba9738a4c978183cc9dca711a6, type: 3}
+  - name: EnemyHit
+    clip: {fileID: 8300000, guid: 3ad7a519957ba4493b1d30f93189ee6d, type: 3}
   musicSource: {fileID: 302322955}
   sfxSource: {fileID: 1099226074}
   loopingsfxSource: {fileID: 1099226074}

@@ -136,6 +136,7 @@ public class Player : MonoBehaviour
                 playerHealth = 0;
             } else {
                 playerHealth -= 1;
+                AudioManager.Instance.PlaySFX("EnemyHit");
             }
             if (playerHealth <= 0) {
                 GameWorld.instance.Reset();
@@ -144,4 +145,6 @@ public class Player : MonoBehaviour
         }
     }
 
+
 }
+

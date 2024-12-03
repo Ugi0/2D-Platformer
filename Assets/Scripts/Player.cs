@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
         jumpCollider = GameObject.FindWithTag("Player").GetComponents<BoxCollider2D>()[0];
 
         animator = GetComponent<Animator>();
+        Turn();
     }
 
     // Update is called once per frame

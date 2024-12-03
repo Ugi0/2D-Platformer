@@ -59,15 +59,37 @@ public class Player : MonoBehaviour
         if ((horizontal < 0 && !isFacingLeft) || (horizontal > 0 && isFacingLeft)) {
             Turn();
         }
+
+        // Play running sound if the player is moving
+       if (horizontal != 0 && IsGrounded())
+        {
+            if (!AudioManager.Instance.loopingsfxSource.isPlaying)
+            {
+                AudioManager.Instance.PlayLoopingSFX("Running");
+            }
+        }
+        else
+        {
+            AudioManager.Instance.StopLoopingSFX();
+        }
+        
         Vector2 newVel = myRigidbody.velocity;
         Vector2 newPos = myRigidbody.position;
         newVel.x = moveSpeed * horizontal;
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
             newVel.y = jumpHeight;
+            AudioManager.Instance.PlaySFX("Collectable");
         }
         if (Input.GetKey(KeyCode.UpArrow) && IsOnALadder()) {
             newVel.y = climbSpeed;
+
+            // Start climbing sound
+            if (!AudioManager.Instance.loopingsfxSource.isPlaying)
+            {
+                AudioManager.Instance.PlaySFX("Climbing");
+            }
         }
+
         myRigidbody.velocity = newVel;
         myRigidbody.position = newPos;
     }
@@ -110,6 +132,7 @@ public class Player : MonoBehaviour
         if (collision == null) return;
         if ((_enemiesMask.value & (1 << collision.gameObject.layer)) != 0) {
             if (collision.gameObject.tag.Equals("Death Barrier")) {
+                AudioManager.Instance.PlaySFX("Falling");
                 playerHealth = 0;
             } else {
                 playerHealth -= 1;

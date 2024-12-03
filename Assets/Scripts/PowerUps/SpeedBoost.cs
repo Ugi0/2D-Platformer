@@ -12,6 +12,7 @@ public class SpeedBoost : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(ApplySpeedBoost(other));
+            AudioManager.Instance.PlaySFX("Powerup");
         }
     }
 

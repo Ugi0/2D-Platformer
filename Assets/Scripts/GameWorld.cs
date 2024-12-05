@@ -17,6 +17,7 @@ public class GameWorld : MonoBehaviour
     private float startTime;
     private float endTime;
 
+
     private void Awake() 
 { 
     // If there is an instance, and it's not me, delete myself.
@@ -34,6 +35,7 @@ public class GameWorld : MonoBehaviour
         startTime = Time.time;
 
         pauseMenu.SetActive(false);
+
     }
 
     public float getTime() {

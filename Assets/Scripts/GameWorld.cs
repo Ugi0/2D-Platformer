@@ -36,6 +36,10 @@ public class GameWorld : MonoBehaviour
 
         pauseMenu.SetActive(false);
 
+        //AudioManager.Instance.PlaySFX("Collectable");
+
+        AudioManager.Instance.PlayMusic("Theme");
+
     }
 
     public float getTime() {

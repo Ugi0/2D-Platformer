@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayMusic("Theme");
+        PlayMusic("MainMenu");
     }
 
     public void PlayMusic(string name)
@@ -82,6 +82,22 @@ public class AudioManager : MonoBehaviour
         {
             loopingsfxSource.Stop();
             loopingsfxSource.loop = false; // Reset looping to avoid affecting other sounds
+        }
+    }
+
+    public void RestartMusic(string name)
+    {
+        Sound s = Array.Find(musicSounds, x => x.name == name);
+
+        if (s == null)
+        {
+            Debug.Log("Sound not found");
+        }
+        else
+        {
+            musicSource.Stop(); // Stop current music
+            musicSource.clip = s.clip;
+            musicSource.Play(); // Play from the beginning
         }
     }
 

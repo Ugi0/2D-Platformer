@@ -21,6 +21,8 @@ public class SceneSwitch : MonoBehaviour
     {
         if (col.collider.CompareTag("Player")) {
             SceneManager.LoadScene(scene.name);
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlaySFX("Levelcomplete");
         }
     }
 }

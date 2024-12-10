@@ -59,18 +59,35 @@ public class Player : MonoBehaviour
             MoveControls();
             Animate();
         }
-    }
+ 
+        animator.SetFloat("xVelocity", Math.Abs(myRigidbody.velocity.x));
+        animator.SetFloat("yVelocity", myRigidbody.velocity.y);
+        animator.SetBool("isJumping", !IsGrounded());    }
 
     void MoveControls() {
         horizontal = Input.GetAxis("Horizontal");
         if ((horizontal < 0 && !isFacingLeft) || (horizontal > 0 && isFacingLeft)) {
             Turn();
         }
+
+        // Play running sound if the player is moving
+       if (horizontal != 0 && IsGrounded())
+        {
+            if (!AudioManager.Instance.loopingsfxSource.isPlaying)
+            {
+                AudioManager.Instance.PlayLoopingSFX("Running");
+            }
+        }
+        else
+        {
+            AudioManager.Instance.StopLoopingSFX();
+        }
         Vector2 newVel = myRigidbody.velocity;
         Vector2 newPos = myRigidbody.position;
         newVel.x = moveSpeed * horizontal;
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
             newVel.y = jumpHeight;
+            AudioManager.Instance.PlaySFX("Jumping");
             isJumping = true;
             isGrounded = false;
             isClimbing = false;
@@ -80,6 +97,11 @@ public class Player : MonoBehaviour
             isClimbing = true;
             isGrounded = false;
             isJumping = false;
+            // Start climbing sound
+            if (!AudioManager.Instance.loopingsfxSource.isPlaying)
+            {
+                AudioManager.Instance.PlaySFX("Climbing");
+            }
         }
         myRigidbody.velocity = newVel;
         myRigidbody.position = newPos;

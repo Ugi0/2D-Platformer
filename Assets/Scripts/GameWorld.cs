@@ -12,6 +12,7 @@ public class GameWorld : MonoBehaviour
 
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject deathMenu;
+    [SerializeField] UnityEngine.Object resetScene;
     public static bool isPaused;
 
     private static float startTime;
@@ -34,6 +35,11 @@ public class GameWorld : MonoBehaviour
 
         startTime = Time.time;
 
+        pauseMenu.SetActive(false);
+
+        //AudioManager.Instance.PlaySFX("Collectable");
+
+        AudioManager.Instance.PlayMusic("Theme");
     }
 
     public float getTime() {

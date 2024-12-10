@@ -7,5 +7,7 @@ public class Collectable : MonoBehaviour
             Debug.Log("Collectable collected");
             Destroy(this.gameObject);
         }
+    AudioManager.Instance.PlaySFX("Collectable");
+
     }
 }

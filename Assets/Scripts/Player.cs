@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
         newVel.x = moveSpeed * horizontal;
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()) {
             newVel.y = jumpHeight;
-            AudioManager.Instance.PlaySFX("Collectable");
+            AudioManager.Instance.PlaySFX("Jumping");
         }
         if (Input.GetKey(KeyCode.UpArrow) && IsOnALadder()) {
             newVel.y = climbSpeed;

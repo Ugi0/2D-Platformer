@@ -2528,7 +2528,7 @@ MonoBehaviour:
   - name: Running
     clip: {fileID: 8300000, guid: c114e94ed6b7b41fc9f0e16151b17ca0, type: 3}
   - name: Jumping
-    clip: {fileID: 8300000, guid: 2321ee28684e34df692055511f6d946f, type: 3}
+    clip: {fileID: 8300000, guid: fb1fc05b678b7498097546b400663e82, type: 3}
   - name: Climbing
     clip: {fileID: 8300000, guid: 18c39fd2cf38b45b39a2e1e2cc617331, type: 3}
   - name: Falling

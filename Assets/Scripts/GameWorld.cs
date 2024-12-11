@@ -12,7 +12,6 @@ public class GameWorld : MonoBehaviour
 
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject deathMenu;
-    [SerializeField] UnityEngine.Object resetScene;
     public static bool isPaused;
 
     private static float startTime;

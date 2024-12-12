@@ -61,11 +61,8 @@ public class Player : MonoBehaviour
             MoveControls();
             Animate();
         }
- 
-        animator.SetFloat("xVelocity", Math.Abs(myRigidbody.velocity.x));
-        animator.SetFloat("yVelocity", myRigidbody.velocity.y);
-        animator.SetBool("isJumping", !IsGrounded());    }
-
+    }
+    
     void MoveControls() {
         horizontal = Input.GetAxis("Horizontal");
         if ((horizontal < 0 && !isFacingLeft) || (horizontal > 0 && isFacingLeft)) {

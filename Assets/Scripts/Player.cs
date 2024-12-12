@@ -145,9 +145,11 @@ public class Player : MonoBehaviour
         if (collision == null) return;
         if ((_enemiesMask.value & (1 << collision.gameObject.layer)) != 0) {
             if (collision.gameObject.tag.Equals("Death Barrier")) {
+                AudioManager.Instance.PlaySFX("Falling");
                 playerHealth = 0;
             } else {
                 playerHealth -= 1;
+                AudioManager.Instance.PlaySFX("EnemyHit");
             }
             if (playerHealth <= 0) {
                 GameWorld.instance.Death();

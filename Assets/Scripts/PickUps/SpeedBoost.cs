@@ -9,6 +9,7 @@ public class SpeedBoost : PickUp
 
     protected override void ApplyPickUp()
     {
+        AudioManager.Instance.PlaySFX("Powerup");
         player.moveSpeed *= speedMultiplier;
     }
 

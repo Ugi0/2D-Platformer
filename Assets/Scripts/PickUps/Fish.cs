@@ -8,11 +8,11 @@ public class Fish : PickUp
 
     protected override void ApplyPickUp()
     {
-        // TODO: lisää scorea / elämiä
+        GameWorld.extraTime += 5;
     }
 
     protected override void RemovePickUp()
     {
-        // Ei tapahdu mitään
+        // Ei tapahdu mitï¿½ï¿½n
     }
 }

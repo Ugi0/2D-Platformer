@@ -16,6 +16,7 @@ public class GameWorld : MonoBehaviour
 
     private static float startTime;
     private static float endTime;
+    public static float extraTime;
     public static bool dead = false;
 
     private void Awake() 
@@ -31,7 +32,7 @@ public class GameWorld : MonoBehaviour
     void Start()
     {
         isPaused = false;
-
+        extraTime = 0;
         startTime = Time.time;
 
         pauseMenu.SetActive(false);
@@ -44,7 +45,7 @@ public class GameWorld : MonoBehaviour
     public float getTime() {
         Debug.Log(startTime);
         Debug.Log(endTime);
-        return endTime - startTime;
+        return endTime - startTime - extraTime;
     }
 
     public void stopTimer() {

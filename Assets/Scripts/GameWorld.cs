@@ -35,10 +35,7 @@ public class GameWorld : MonoBehaviour
         extraTime = 0;
         startTime = Time.time;
 
-        pauseMenu.SetActive(false);
-
         //AudioManager.Instance.PlaySFX("Collectable");
-
         AudioManager.Instance.PlayMusic("Theme");
     }
 

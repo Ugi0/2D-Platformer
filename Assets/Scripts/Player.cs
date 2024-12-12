@@ -18,10 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask _ladderMask;
 
     [SerializeField] LayerMask _enemiesMask;
-    //private static float playerWidth = 1.5f;
     private static int RaycastNumber = 5;
-    //private static float rayCastLength = 1f;
-
     private static int defaultHealth = 3;
     public int playerHealth;
     float horizontal;

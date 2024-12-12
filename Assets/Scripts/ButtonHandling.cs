@@ -101,7 +101,7 @@ public class UIHandler : MonoBehaviour
     }
 
     public void ResetGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("ZooLevel");
         Time.timeScale = 1;
         GameWorld.dead = false;
     }

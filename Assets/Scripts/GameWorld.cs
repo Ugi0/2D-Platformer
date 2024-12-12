@@ -40,8 +40,6 @@ public class GameWorld : MonoBehaviour
     }
 
     public float getTime() {
-        Debug.Log(startTime);
-        Debug.Log(endTime);
         return endTime - startTime - extraTime;
     }
 

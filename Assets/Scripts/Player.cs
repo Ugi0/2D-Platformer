@@ -87,10 +87,6 @@ public class Player : MonoBehaviour
             isJumping = true;
             isGrounded = false;
             isClimbing = false;
-        } else if (IsGrounded()) {
-            isJumping = false;
-            isGrounded = true;
-            isClimbing = false;
         }
         if (Input.GetKey(KeyCode.UpArrow) && IsOnALadder()) {
             newVel.y = climbSpeed;

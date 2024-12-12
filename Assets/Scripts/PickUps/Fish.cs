@@ -8,6 +8,7 @@ public class Fish : PickUp
 
     protected override void ApplyPickUp()
     {
+        AudioManager.Instance.PlaySFX("Collectable");
         GameWorld.extraTime += 5;
     }
 

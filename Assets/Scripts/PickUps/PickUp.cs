@@ -35,7 +35,6 @@ public abstract class PickUp : ScriptableObject
 
     private IEnumerator ApplyEffect()
     {
-        AudioManager.Instance.PlaySFX("Collectable");
         ApplyPickUp();
         float remainingTime = duration;
 

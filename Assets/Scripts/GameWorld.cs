@@ -51,6 +51,8 @@ public class GameWorld : MonoBehaviour
         deathMenu.SetActive(true);
         Time.timeScale = 0;
         dead = true;
+        AudioManager.Instance.StopLoopingSFX();
+        isPaused = true;
     }
 
     // Update is called once per frame
@@ -62,6 +64,7 @@ public class GameWorld : MonoBehaviour
                 pauseMenu.SetActive(true);
                 Time.timeScale = 0;
                 isPaused = true;
+                AudioManager.Instance.StopLoopingSFX();
             } else {
                 pauseMenu.SetActive(false);
                 Time.timeScale = 1;

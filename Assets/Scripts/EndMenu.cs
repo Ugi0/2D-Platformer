@@ -32,6 +32,10 @@ public class EndMenu : MonoBehaviour
             if (GameWorld.instance.getTime() < STAR3LIMIT) {
                 starContainer.transform.GetChild(2).gameObject.GetComponent<CanvasRenderer>().cull = false;
             }
+            if(GameWorld.instance.getTime()<HighScore.instance.LoadScore())
+            {
+                HighScore.instance.SaveScore(GameWorld.instance.getTime());
+            }
         }
     }
 }

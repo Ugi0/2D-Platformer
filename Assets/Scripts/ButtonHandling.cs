@@ -45,7 +45,7 @@ public class UIHandler : MonoBehaviour
     {
         float localValue = value * 100.0f;
         musicSliderText.text = localValue.ToString("0");
-        AudioListener.volume = localValue;
+        AudioManager.Instance.musicSource.volume = value;
         if(value == 0)
         {
             musicMuted = true;
@@ -61,6 +61,7 @@ public class UIHandler : MonoBehaviour
     {
         float localValue = value * 100.0f;
         sfxSliderText.text = localValue.ToString("0");
+        AudioManager.Instance.sfxSource.volume = value;
         if (value == 0)
         {
             sfxMuted = true;
@@ -70,6 +71,7 @@ public class UIHandler : MonoBehaviour
         {
             sfxMuted = false;
             sfxButton.image.sprite = soundOnImage;
+            AudioManager.Instance.PlaySFX("Collectable");
         }
     }
 

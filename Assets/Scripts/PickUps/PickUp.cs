@@ -30,12 +30,12 @@ public abstract class PickUp : ScriptableObject
         PickUpManager.Instance.StartCoroutine(ApplyEffect());
     }
 
-    protected abstract void ApplyPickUp();
+    protected abstract void ApplyPickUp(Player player);
     protected abstract void RemovePickUp();
 
     private IEnumerator ApplyEffect()
     {
-        ApplyPickUp();
+        ApplyPickUp(player);
         float remainingTime = duration;
 
         while (remainingTime > 0)

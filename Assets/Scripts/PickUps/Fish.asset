@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Fish
   m_EditorClassIdentifier: 
   pickUpName: Fish
-  duration: 0
+  duration: 2
   hudElementPrefab: {fileID: 0}
+  textUIPrefab: {fileID: 3756055514014722863, guid: 8a9e34d830e94c642b71a202bab7fd05, type: 3}

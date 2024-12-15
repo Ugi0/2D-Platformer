@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class EndMenu : MonoBehaviour
 {
-    private static int STAR3LIMIT = 60;
-    private static int STAR2LIMIT = 90;
-    private static int STAR1LIMIT = 120;
+    private static int STAR3LIMIT = 45;
+    private static int STAR2LIMIT = 60;
+    private static int STAR1LIMIT = 75;
     [SerializeField] TextMeshProUGUI endMenuTime;
     [SerializeField] GameObject starContainer;
     // Start is called before the first frame update
